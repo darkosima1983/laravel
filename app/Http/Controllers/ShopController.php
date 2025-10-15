@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Product; 
 class ShopController extends Controller
 {
-     public function index(){
-
-        $products = [
-                "Casio G-Shock Classic", "Citizen Automatik Herrenuhr", "Citizen Promaster Marine Eco Drive Herrenuhr", "Casio Vintage Edgy"
-        ];
+     public function getAllProducts(){
+        
+        $products = Product::all();
         return view("shop", compact("products"));
     }
 }
