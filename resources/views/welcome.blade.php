@@ -63,6 +63,19 @@
             @endforeach
         </div>
     </div>
+
+<form method="POST" action="/send-contact">
+    @if ($errors->any())
+        <p>Greska: {{$errors->first()}}</p>
+    @endif
+    {{ csrf_field() }}<!-- ili ovako @csrf -->
+    <input name="email" type="text" placeholder="Geben Sie Ihre E-Mail-Adresse ein"><!-- Obavezno je name polje -->
+    <input name="subject" type="text" placeholder="Geben Sie den Betreff Ihrer Nachricht ein">
+    <textarea name="description" placeholder="Geben Sie Ihre Nachricht ein"></textarea>
+    <button>Nachricht senden</button>
+</form>
+
+
 @endsection
 
 

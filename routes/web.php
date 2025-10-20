@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/about', function () {
     return view('about');
@@ -18,5 +19,12 @@ Route::get('/', [HomepageController::class, 'index']);
 
 Route::get('/shop', [ShopController::class, 'getAllProducts']);
 
-
 Route::get('/admin/all-contacts', [ContactController::class, 'getAllContacts']);
+
+Route::post("/send-contact", [ContactController::class, "sendContact"]);
+
+Route::get('/admin/add-product', [ProductController::class, 'index']);
+
+Route::get('/admin/all-products', [ProductController::class, 'getAllProducts']);
+
+Route::post("/admin/send-product", [ProductController::class, "sendProduct"]);
