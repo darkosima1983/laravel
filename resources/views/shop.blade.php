@@ -30,7 +30,8 @@
                     <td>{{ $product->price }} €</td>
                     <td>
                         @if($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="100">
+                            <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->name }}" width="100">
+
                         @else
                             Kein Bild
                         @endif

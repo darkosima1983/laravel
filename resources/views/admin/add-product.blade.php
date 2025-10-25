@@ -1,10 +1,8 @@
-@extends("layout")
+@extends('admin.layout')
 
-@section("title")
-    Produkt hinzufügen
-@endsection
+@section('title', 'Produkt hinzufügen')
 
-@section("content")
+@section('content')
 <div class="container mt-5">
     <h2>Neues Produkt hinzufügen</h2>
     <form action="/admin/send-product" method="POST" enctype="multipart/form-data">
@@ -34,10 +32,10 @@
             <input type="text" class="form-control" id="price" name="price" placeholder="z. B. 199.99" required>
         </div>
 
-        {{-- Bild --}}
+         {{-- Bild (Text input) --}}
         <div class="mb-3">
-            <label for="image" class="form-label">Produktbild</label>
-            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+            <label for="image" class="form-label">Produktbild (Dateiname)</label>
+            <input type="text" class="form-control" id="image" name="image" placeholder="z. B. image10.jpg" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Speichern</button>

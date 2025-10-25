@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alle Produkte</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+@extends('admin.layout')
+
+@section('title', 'Alle Produkte')
+
+@section('content')
 <div class="container mt-4">
     <h2 class="mb-4">Liste aller Produkte</h2>
 
@@ -32,7 +28,7 @@
                     <td>{{ number_format($product->price, 2, ',', '.') }}</td>
                     <td>
                         @if($product->image)
-                            <img src="{{ asset('uploads/products/' . $product->image) }}" width="80" alt="Bild">
+                            <img src="{{ asset('storage/images/' . $product->image) }}" width="80" alt="Bild">
                         @else
                             <span class="text-muted">Kein Bild</span>
                         @endif
@@ -50,6 +46,5 @@
         <div class="alert alert-info">Keine Produkte vorhanden.</div>
     @endif
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+@endsection
+
