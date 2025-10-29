@@ -12,26 +12,69 @@ class ContactController extends Controller
 
       public function getAllContacts(){
        
-         $contacts = ContactModel::all(); // povlači sve zapise iz baze
+         $contacts = ContactModel::all(); 
         return view('admin.allContacts', compact('contacts'));
+    }
+     public function delete ($contact){
+        $singleContact = ContactModel::where(['id'=>$contact])->first();
+        
+        if($singleContact== null){
+            die("Dieses Kontakt existiert nicht.");
+        }
+        $singleContact->delete();
+        return redirect()->back();
     }
     public function sendContact(Request $request){
         $request->validate([
-            // "name"=> "pravila"
-            "email"=> "required|string", // if (isset($_POST['email']) && is_string($_POST['email'])), proverava da li postoji
+            "email"=> "required|string", 
             "subject"=> "required|string",
-            "description" => "required|string|min:5" //min:5 → mora imati najmanje 5 karaktera
+            "message" => "required|string|min:5", 
          ]);
-      // echo "Die E-Mail-Adresse ist ". $request->get("email"). " Der Betreff ist: ". $request->get("subject"). " Die Nachricht ist: ".$request->get("description");
+     
 
-       //$sql->query ("INSERT INTO (email, subject, message) VALUES ('$email', '$subject', '$description')")
+       
        ContactModel::create([
            "email"=> $request->get("email"),
            "subject"=> $request->get("subject"),
-           "message"=> $request->get("description")
+           "message" => $request->get("message"),
 
        ]);
 
-       return redirect ("/shop");
+       return redirect ()->route("AlleKontakte");
     }
+
+    public function edit($contact)
+    {
+        $singleContact = ContactModel::find($contact);
+        if (!$singleContact){
+            abort(404, "Diese Kontakt existiert nicht.");
+
+        }
+        return view('admin.edit-contact', compact('singleContact'));
+    }
+
+    public function update(Request $request, $contact)
+    {
+        $singleContact = ContactModel::find($contact);
+         if (!$singleContact){
+            abort(404, "Diese Kontakt existiert nicht.");
+
+        }
+        
+        $request->validate([
+            "email"=> "required|string" ,
+            "subject"=> "required|string",
+            "message" => "required|string|min:5", 
+         ]);
+        
+
+        $singleContact->update([
+            "email"=> $request->get("email"),
+           "subject"=> $request->get("subject"),
+           "message" => $request->get("message"),
+        ]);
+
+        return redirect()->route('AlleKontakte');
+    }
+
 }

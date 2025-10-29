@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <!-- Hero sekcija -->
+    
     <div class="p-5 mb-4 bg-light rounded-3" 
          style="background: url('https://images.unsplash.com/photo-1519744346365-9f2f0e69fdd1') center/cover no-repeat; min-height: 70vh; display: flex; align-items: center; justify-content: center; color: white; text-shadow: 2px 2px 6px rgba(0,0,0,0.7);">
         <div class="text-center">
@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <!-- Sekcija ispod hero -->
+   
     <div class="container text-center my-5">
         <h2>Warum bei uns kaufen?</h2>
         <div class="row mt-4">
@@ -63,18 +63,6 @@
             @endforeach
         </div>
     </div>
-
-<form method="POST" action="/send-contact">
-    @if ($errors->any())
-        <p>Greska: {{$errors->first()}}</p>
-    @endif
-    {{ csrf_field() }}<!-- ili ovako @csrf -->
-    <input name="email" type="text" placeholder="Geben Sie Ihre E-Mail-Adresse ein"><!-- Obavezno je name polje -->
-    <input name="subject" type="text" placeholder="Geben Sie den Betreff Ihrer Nachricht ein">
-    <textarea name="description" placeholder="Geben Sie Ihre Nachricht ein"></textarea>
-    <button>Nachricht senden</button>
-</form>
-
 
 @endsection
 

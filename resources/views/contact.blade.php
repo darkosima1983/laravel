@@ -8,11 +8,14 @@
 <div class="container">
     <h1 class="mb-4 text-center">Kontaktieren Sie uns</h1>
 
-    <!-- Kontakt Forma -->
+    
     <div class="row">
         <div class="col-md-6">
-            <form action="#" method="POST">
-                @csrf
+            <form method="POST" action="/send-contact">
+                @if ($errors->any())
+                    <p>Fehler: {{$errors->first()}}</p>
+                @endif
+                {{ csrf_field() }}
                 <div class="mb-3">
                     <label for="email" class="form-label">E-Mail Adresse</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Ihre E-Mail" required>
@@ -32,7 +35,7 @@
             </form>
         </div>
 
-        <!-- Google Maps -->
+        
         <div class="col-md-6">
             <h5>Unsere Adresse</h5>
             <p>Kleberstraße 33a, 96047 Bamberg</p>

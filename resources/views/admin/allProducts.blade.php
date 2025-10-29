@@ -35,8 +35,8 @@
                     </td>
                     <td>{{ $product->created_at->format('d.m.Y') }}</td>
                     <td>
-                        <a href="{{ url('admin/edit-product/' . $product->id) }}" class="btn btn-sm btn-primary">Bearbeiten</a>
-                        <a href="{{ url('admin/delete-product/' . $product->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Sind Sie sicher, dass Sie dieses Produkt löschen möchten?')">Löschen</a>
+                        <a href="{{ route('bearbeitenProdukt', ['product'=>$product->id]) }}" class="btn btn-sm btn-primary">Bearbeiten</a>
+                        <a href="{{ route('löschenProduct',['product'=> $product->id]) }}" class="btn btn-sm btn-danger" onclick="return confirm('Sind Sie sicher, dass Sie dieses Produkt löschen möchten?')">Löschen</a>
                     </td>
                 </tr>
                 @endforeach

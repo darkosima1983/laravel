@@ -12,14 +12,14 @@ class ProductController extends Controller
 
     public function getAllProducts(){
        
-         $products = Product::all(); // povlači sve zapise iz baze
+         $products = Product::all(); 
         return view('admin.allProducts', compact('products'));
     }
     public function delete ($product){
-        $singleProduct = Product::where(['id'=>$product])->first();//SELECT * FROM products WHERE id = $product LIMIT 1
+        $singleProduct = Product::where(['id'=>$product])->first();
         
         if($singleProduct== null){
-            die("Ovaj proizvod ne postoji");
+            die("Dieses Produkt existiert nicht.");
         }
         $singleProduct->delete();
         return redirect()->back();
@@ -27,11 +27,10 @@ class ProductController extends Controller
     public function sendProduct(Request $request){
         $request->validate([
             
-            "name"=> "required|string|min:3", 
-            "description"=> "required|string|min:5",
+            "name" => "required|string|min:3|unique:products,name", 
             "amount"=> "required|integer|min:1",
             "price" => ["required", "numeric", "min:0", "decimal:0,2"],
-            "image" => "nullable|string"
+            "image" => "nullable|string",
          ]);
      
        Product::create([
@@ -43,6 +42,43 @@ class ProductController extends Controller
 
        ]);
 
-       return redirect ("/admin/all-products");
+       return redirect ()->route("AlleProdukte"); 
     }
+    public function edit($product)
+    {
+            $singleProduct = Product::find($product);
+
+            if (!$singleProduct) {
+                abort(404, "Dieses Produkt existiert nicht.");
+        }
+
+        return view('admin.edit-product', compact('singleProduct'));
+    }
+    public function update(Request $request, $product)
+    {
+        $singleProduct = Product::find($product);
+
+        if (!$singleProduct) {
+            abort(404, "Dieses Produkt existiert nicht.");
+        }
+
+        $request->validate([
+            "name" => "required|string|min:3|unique:products,name," . $product,
+            "description" => "required|string|min:5",
+            "amount" => "required|integer|min:1",
+            "price" => ["required", "numeric", "min:0", "decimal:0,2"],
+            "image" => "nullable|string",
+        ]);
+
+        $singleProduct->update([
+            "name" => $request->get("name"),
+            "description" => $request->get("description"),
+            "amount" => $request->get("amount"),
+            "price" => $request->get("price"),
+            "image" => $request->get("image"),
+        ]);
+
+        return redirect()->route('AlleProdukte');
+    }
+
 }

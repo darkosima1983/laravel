@@ -5,43 +5,31 @@
 @endsection
 
 @section("content")
-    <h1>Produktliste</h1>
+    
 
-    <table border="1" cellpadding="5">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Beschreibung</th>
-                <th>Menge</th>
-                <th>Preis</th>
-                <th>Bild</th>
-                <th>Erstellt am</th>
-                <th>Aktualisiert am</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($products as $product)
-                <tr>
-                    <td>{{ $product->id }}</td>
-                    <td>{{ $product->name }}</td>
-                    <td>{{ $product->description }}</td>
-                    <td>{{ $product->amount }}</td>
-                    <td>{{ $product->price }} €</td>
-                    <td>
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Produktliste</h2>
+        <div class="row">
+            @foreach($products as $product)
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100">
                         @if($product->image)
-                            <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->name }}" width="100">
-
+                            <img src="{{ asset('storage/images/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
                         @else
-                            Kein Bild
+                            <img src="https://via.placeholder.com/400x300?text=Kein+Bild" class="card-img-top" alt="Kein Bild">
                         @endif
-                    </td>
-                    <td>{{ $product->created_at }}</td>
-                    <td>{{ $product->updated_at }}</td>
-                </tr>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $product->name }}</h5>
+                            <p class="card-text">{{ Str::limit($product->description, 80) }}</p>
+                            <p><strong>Preis:</strong> {{ $product->price }} €</p>
+                            <p><strong>Menge:</strong> {{ $product->amount }}</p>
+                            <a href="/shop" class="btn btn-primary">Zum Shop</a>
+                        </div>
+                    </div>
+                </div>
             @endforeach
-        </tbody>
-    </table>
+        </div>
+    </div>
 @endsection
 
 

@@ -14,6 +14,7 @@
             <th>Nachricht</th>
             <th>Erstellt am</th>
             <th>Aktualisiert am</th>
+            <th>Aktionen</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,10 @@
                 <td>{{ $contact->message }}</td>
                 <td>{{ $contact->created_at }}</td>
                 <td>{{ $contact->updated_at }}</td>
+                <td>
+                    <a href="{{ url('admin/edit-contact/' . $contact->id) }}" class="btn btn-sm btn-primary">Bearbeiten</a>
+                    <a href="{{ route('löschenContact', ['contact'=>$contact->id]) }}" class="btn btn-sm btn-danger" onclick="return confirm('Sind Sie sicher, dass Sie dieses Contact löschen möchten?')">Löschen</a>
+                </td>
             </tr>
         @endforeach
     </tbody>

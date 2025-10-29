@@ -35,7 +35,7 @@
 
         @include ("navigation")
 
-    <!-- Glavni sadržaj -->
+    
     <main class="container my-5">
         @yield('content')
     </main>
