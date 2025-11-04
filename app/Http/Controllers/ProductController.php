@@ -44,41 +44,32 @@ class ProductController extends Controller
 
        return redirect ()->route("AlleProdukte"); 
     }
-    public function edit($product)
+    public function edit(Product $singleProduct)
     {
-            $singleProduct = Product::find($product);
-
-            if (!$singleProduct) {
-                abort(404, "Dieses Produkt existiert nicht.");
-        }
+         
 
         return view('admin.edit-product', compact('singleProduct'));
     }
-    public function update(Request $request, $product)
-    {
-        $singleProduct = Product::find($product);
+   public function update(Request $request, Product $singleProduct)
+{
+    $request->validate([
+        "name" => "required|string|min:3|unique:products,name," . $singleProduct->id,
+        "description" => "required|string|min:5",
+        "amount" => "required|integer|min:1",
+        "price" => ["required", "numeric", "min:0", "decimal:0,2"],
+        "image" => "nullable|string",
+    ]);
 
-        if (!$singleProduct) {
-            abort(404, "Dieses Produkt existiert nicht.");
-        }
+    $singleProduct->update([
+        "name" => $request->get("name"),
+        "description" => $request->get("description"),
+        "amount" => $request->get("amount"),
+        "price" => $request->get("price"),
+        "image" => $request->get("image"),
+    ]);
 
-        $request->validate([
-            "name" => "required|string|min:3|unique:products,name," . $product,
-            "description" => "required|string|min:5",
-            "amount" => "required|integer|min:1",
-            "price" => ["required", "numeric", "min:0", "decimal:0,2"],
-            "image" => "nullable|string",
-        ]);
+    return redirect()->route('AlleProdukte')->with('success', 'Produkt wurde erfolgreich aktualisiert.');
+}
 
-        $singleProduct->update([
-            "name" => $request->get("name"),
-            "description" => $request->get("description"),
-            "amount" => $request->get("amount"),
-            "price" => $request->get("price"),
-            "image" => $request->get("image"),
-        ]);
-
-        return redirect()->route('AlleProdukte');
-    }
 
 }

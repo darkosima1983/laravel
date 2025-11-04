@@ -6,6 +6,7 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ProductController;
 
+
 Route::get('/about', function () {
     return view('about');
 });
@@ -17,7 +18,7 @@ Route::get('/shop', [ShopController::class, 'getAllProducts']);
 Route::get('/admin/add-product', [ProductController::class, 'index']);
 
 Route::get('/admin/all-contacts', [ContactController::class, 'getAllContacts'])->name('AlleKontakte');
-Route::get('/admin/all-products', [ProductController::class, 'getAllProducts'])->name('AlleProdukte');
+Route::get('/admin/all-products', [ProductController::class, 'getAllProducts'])->middleware('auth')->name('AlleProdukte');
 
 Route::get("/admin/delete-product/{product}", [ProductController::class, "delete"])->name('löschenProduct');
 Route::get("/admin/delete-contact/{contact}", [ContactController::class, "delete"])->name('löschenContact');
@@ -32,6 +33,4 @@ Route::post('/admin/update-product/{product}', [ProductController::class, 'updat
 Route::post('/admin/update-contact/{contact}', [ContactController::class, 'update'])->name('aktualisierenKontakt');
 
 
-
-
-
+require __DIR__.'/auth.php';
