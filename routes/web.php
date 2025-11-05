@@ -14,23 +14,27 @@ Route::get('/about', function () {
 Route::get('/contact', [ContactController::class, 'index']);
 Route::get('/', [HomepageController::class, 'index']);
 Route::get('/shop', [ShopController::class, 'getAllProducts']);
+Route::middleware('auth')-> prefix('admin')->group(function () {
 
-Route::get('/admin/add-product', [ProductController::class, 'index']);
+    Route::get('/admin/add-product', [ProductController::class, 'index']);
 
-Route::get('/admin/all-contacts', [ContactController::class, 'getAllContacts'])->name('AlleKontakte');
-Route::get('/admin/all-products', [ProductController::class, 'getAllProducts'])->middleware('auth')->name('AlleProdukte');
+Route::get('/all-contacts', [ContactController::class, 'getAllContacts'])->name('AlleKontakte');
+Route::get('/all-products', [ProductController::class, 'getAllProducts'])->name('AlleProdukte');
 
-Route::get("/admin/delete-product/{product}", [ProductController::class, "delete"])->name('löschenProduct');
-Route::get("/admin/delete-contact/{contact}", [ContactController::class, "delete"])->name('löschenContact');
+Route::get("/delete-product/{product}", [ProductController::class, "delete"])->name('löschenProduct');
+Route::get("/delete-contact/{contact}", [ContactController::class, "delete"])->name('löschenContact');
 
 Route::post("/send-contact", [ContactController::class, "sendContact"]);
-Route::post("/admin/save-product", [ProductController::class, "sendProduct"])->name("hinzufügenProdukt");
+Route::post("/save-product", [ProductController::class, "sendProduct"])->name("hinzufügenProdukt");
 
-Route::get('/admin/edit-product/{product}', [ProductController::class, 'edit'])->name('bearbeitenProdukt');
-Route::get('/admin/edit-contact/{contact}', [ContactController::class, 'edit'])->name('bearbeitenKontakt');
+Route::get('/edit-product/{product}', [ProductController::class, 'edit'])->name('bearbeitenProdukt');
+Route::get('/edit-contact/{contact}', [ContactController::class, 'edit'])->name('bearbeitenKontakt');
 
-Route::post('/admin/update-product/{product}', [ProductController::class, 'update'])->name('aktualisierenProdukt');
-Route::post('/admin/update-contact/{contact}', [ContactController::class, 'update'])->name('aktualisierenKontakt');
+Route::post('/update-product/{product}', [ProductController::class, 'update'])->name('aktualisierenProdukt');
+Route::post('/update-contact/{contact}', [ContactController::class, 'update'])->name('aktualisierenKontakt');
+
+});
+
 
 
 require __DIR__.'/auth.php';

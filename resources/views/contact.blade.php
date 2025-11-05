@@ -11,7 +11,7 @@
     
     <div class="row">
         <div class="col-md-6">
-            <form method="POST" action="/send-contact">
+            <form method="POST" action="/admin/send-contact">
                 @if ($errors->any())
                     <p>Fehler: {{$errors->first()}}</p>
                 @endif
