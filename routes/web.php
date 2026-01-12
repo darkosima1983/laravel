@@ -17,6 +17,7 @@ Route::get('/shop', [ShopController::class, 'getAllProducts']);
 
 
 
+
 Route::middleware(['auth', AdminCheckMiddleware::class])
     ->prefix('admin')
     ->group(function () {

@@ -16,12 +16,12 @@ class ProductController extends Controller
         return view('admin.allProducts', compact('products'));
     }
     public function delete ($product){
-        $singleProduct = Product::where(['id'=>$product])->first();
+        $product = Product::where(['id'=>$product])->first();
         
-        if($singleProduct== null){
+        if($product== null){
             die("Dieses Produkt existiert nicht.");
         }
-        $singleProduct->delete();
+        $product->delete();
         return redirect()->back();
     }
     public function sendProduct(Request $request){
@@ -44,23 +44,23 @@ class ProductController extends Controller
 
        return redirect ()->route("AlleProdukte"); 
     }
-    public function edit(Product $singleProduct)
+    public function edit(Product $product)
     {
          
 
-        return view('admin.edit-product', compact('singleProduct'));
+        return view('admin.edit-product', compact('product'));
     }
-   public function update(Request $request, Product $singleProduct)
+   public function update(Request $request, Product $product)
 {
     $request->validate([
-        "name" => "required|string|min:3|unique:products,name," . $singleProduct->id,
+        "name" => "required|string|min:3|unique:products,name," . $product->id,
         "description" => "required|string|min:5",
         "amount" => "required|integer|min:1",
         "price" => ["required", "numeric", "min:0", "decimal:0,2"],
         "image" => "nullable|string",
     ]);
 
-    $singleProduct->update([
+    $product->update([
         "name" => $request->get("name"),
         "description" => $request->get("description"),
         "amount" => $request->get("amount"),
