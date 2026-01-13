@@ -4,7 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-
+use App\Models\ExchangeRates;
+use Carbon\Carbon;
 class GetEurRates extends Command
 {
     /**
@@ -26,24 +27,31 @@ class GetEurRates extends Command
      */
     public function handle()
     {
-        $response = Http::get(env('FRANKFURTER_API_URL'), [
-            'from' => 'EUR',
-            'to'   => 'CHF,USD',
-        ]);
+      
 
-        if ($response->failed()) {
-            $this->error('Failed to fetch rates from API');
-            return 1;
+
+
+
+        foreach (ExchangeRates::AVAILABLE_CURRENCIES as $currency) {
+            
+            $todayCurrency = ExchangeRates::getCurrencyForToday($currency);
+            
+            if ($todayCurrency != null) {
+               
+                continue;
+            }
+            
+            $response = Http::get(env('FRANKFURTER_API_URL'), [
+                'from' => 'EUR',
+                'to'   => $currency,
+            ]);
+
+            ExchangeRates::create([
+                'currency' => $currency,
+                'value' => $response->json("rates.$currency"),
+            ]);
         }
 
-        $data = $response->json();
-
-        $eurToChf = $data['rates']['CHF'] ?? null;
-        $eurToUsd = $data['rates']['USD'] ?? null;
-
-        $this->info('EUR → CHF: ' . $eurToChf);
-        $this->info('EUR → USD: ' . $eurToUsd);
-
-        return 0;
+        $this->info('Exchange rates updated successfully.');
     }
 }
