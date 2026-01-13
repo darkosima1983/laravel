@@ -4,8 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product; 
+use App\Repositories\ProductRepository;
 class ProductController extends Controller
 {
+    private $productRepository;
+
+    public function __construct()
+    {
+        $this->productRepository = new ProductRepository();
+
+    }
+
      public function index(){
         return view("admin/add-product");
     }
@@ -33,14 +42,7 @@ class ProductController extends Controller
             "image" => "nullable|string",
          ]);
      
-       Product::create([
-           "name"=> $request->get("name"),
-           "description"=> $request->get("description"),
-           "amount"=> $request->get("amount"),
-           "price"=> $request->get("price"),
-           "image"=> $request->get("image")
-
-       ]);
+       $this->productRepository->createNew($request);
 
        return redirect ()->route("AlleProdukte"); 
     }
