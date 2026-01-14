@@ -25,7 +25,7 @@ class ProductController extends Controller
         return view('admin.allProducts', compact('products'));
     }
     public function delete ($product){
-        $product = Product::where(['id'=>$product])->first();
+        $product = $this->productRepository->getProductById($product);
         
         if($product== null){
             die("Dieses Produkt existiert nicht.");
