@@ -4,8 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ContactModel; 
+use App\Repositories\ContactRepository;
+use App\Http\Requests\SaveContactRequest;
 class ContactController extends Controller
 {
+    private $contactRepository;
+
+    public function __construct()
+    {
+        $this->contactRepository = new ContactRepository();
+    }
+
     public function index(){
         return view("contact");
     }
@@ -16,7 +25,7 @@ class ContactController extends Controller
         return view('admin.allContacts', compact('contacts'));
     }
      public function delete ($contact){
-        $singleContact = ContactModel::where(['id'=>$contact])->first();
+        $singleContact = $this->contactRepository->getContactById($contact);
         
         if($singleContact== null){
             die("Dieses Kontakt existiert nicht.");
@@ -24,21 +33,12 @@ class ContactController extends Controller
         $singleContact->delete();
         return redirect()->back();
     }
-    public function sendContact(Request $request){
-        $request->validate([
-            "email"=> "required|string", 
-            "subject"=> "required|string",
-            "message" => "required|string|min:5", 
-         ]);
-     
-
+    public function sendContact(SaveContactRequest $request){
        
-       ContactModel::create([
-           "email"=> $request->get("email"),
-           "subject"=> $request->get("subject"),
-           "message" => $request->get("message"),
+     
+         $this->contactRepository->createNew($request);
 
-       ]);
+
 
        return redirect ()->route("AlleKontakte");
     }
@@ -61,18 +61,7 @@ class ContactController extends Controller
 
         }
         
-        $request->validate([
-            "email"=> "required|string" ,
-            "subject"=> "required|string",
-            "message" => "required|string|min:5", 
-         ]);
-        
-
-        $singleContact->update([
-            "email"=> $request->get("email"),
-           "subject"=> $request->get("subject"),
-           "message" => $request->get("message"),
-        ]);
+        $this->contactRepository->updateContact($singleContact, $request);
 
         return redirect()->route('AlleKontakte');
     }
