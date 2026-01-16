@@ -40,5 +40,11 @@ Route::middleware(['auth', AdminCheckMiddleware::class])
     Route::post('/update-contact/{contact}', [ContactController::class, 'update'])->name('aktualisierenKontakt');
 });
 
+
+Route::get('/dashboard', function () {
+    return redirect('/admin/add-product');
+})->middleware('auth')->name('dashboard');
+
+
 require __DIR__.'/auth.php';
 

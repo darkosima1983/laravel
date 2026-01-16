@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product; 
 use App\Repositories\ProductRepository;
 use App\Http\Requests\SaveProductRequest;
+use App\Http\Requests\EditProductRequest;
 class ProductController extends Controller
 {
     private $productRepository;
@@ -41,12 +42,12 @@ class ProductController extends Controller
 
        return redirect ()->route("AlleProdukte"); 
     }
-    public function edit(Product $product)
+    public function edit( Product $product)
     {
         return view('admin.edit-product', compact('product'));
     }
-   
-    public function update(Request $request, Product $product)
+
+    public function update(EditProductRequest $request, Product $product)
     {
         $this->productRepository->updateProduct($product, $request);
     return redirect()->route('AlleProdukte')->with('success', 'Produkt wurde erfolgreich aktualisiert.');
