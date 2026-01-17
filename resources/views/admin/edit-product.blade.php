@@ -45,7 +45,7 @@
         </div>
 
         <button type="submit" class="btn btn-success">Änderungen speichern</button>
-        <a href="{{ route('products.all') }}" class="btn btn-secondary">Abbrechen</a>
+        <a href="{{ route('product.all') }}" class="btn btn-secondary">Abbrechen</a>
     </form>
 </div>
 @endsection

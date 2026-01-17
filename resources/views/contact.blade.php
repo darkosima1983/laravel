@@ -11,7 +11,7 @@
     
     <div class="row">
         <div class="col-md-6">
-            <form method="POST" action="{{ route('send.contact') }}">
+            <form method="POST" action="{{ route('contact.send') }}">
                 @if ($errors->any())
                     <p>Fehler: {{$errors->first()}}</p>
                 @endif

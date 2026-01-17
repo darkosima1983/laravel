@@ -9,17 +9,17 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('products.all') }}">Admin Bereich</a>
+            <a class="navbar-brand" href="{{ route('product.all') }}">Admin Bereich</a>
             <div class="collapse navbar-collapse">
               <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('products.all') }}">Produkte</a>
+                    <a class="nav-link" href="{{ route('product.all') }}">Produkte</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('product.add') }}">Neues Produkt hinzufügen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('contacts.all') }}">Kontakte</a>
+                    <a class="nav-link" href="{{ route('contact.all') }}">Kontakte</a>
                 </li>
             </ul>
             </div>

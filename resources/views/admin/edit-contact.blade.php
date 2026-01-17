@@ -33,7 +33,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-success">Änderungen speichern</button>
-                <a href="{{ route('contacts.all') }}" class="btn btn-secondary">Abbrechen</a>
+                <a href="{{ route('contact.all') }}" class="btn btn-secondary">Abbrechen</a>
             </form>
         </div>
 @endsection
