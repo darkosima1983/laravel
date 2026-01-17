@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mt-5">
     <h2>Produkt bearbeiten</h2>
-    <form action="{{ route('aktualisierenProdukt', $product) }}" method="POST">
+    <form action="{{ route('update.product', $product) }}" method="POST">
         @csrf
         
 
@@ -45,7 +45,7 @@
         </div>
 
         <button type="submit" class="btn btn-success">Änderungen speichern</button>
-        <a href="{{ route('AlleProdukte') }}" class="btn btn-secondary">Abbrechen</a>
+        <a href="{{ route('all.products') }}" class="btn btn-secondary">Abbrechen</a>
     </form>
 </div>
 @endsection

@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mt-5">
     <h2>Neues Produkt hinzufügen</h2>
-    <form action="{{route('ProduktHinzufügen')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('add.product')}}" method="POST" enctype="multipart/form-data">
         @csrf  {{-- Laravel CSRF zaštita --}}
 
             @if ($errors->any())
