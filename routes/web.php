@@ -22,22 +22,26 @@ Route::middleware(['auth', AdminCheckMiddleware::class])
     ->prefix('admin')
     ->group(function () {
 
-    Route::controller(ProductController::class)->group(function () {
-        Route::get('/product/all', 'getAllProducts')->name('AlleProdukte');
-        Route::get('/product/add', 'index')->name('ProduktHinzufügen');
-        Route::get('/product/edit/{product}', 'edit')->name('bearbeitenProdukt');
-        Route::post('/product/update/{product}', 'update')->name('aktualisierenProdukt');
-        Route::get('/product/delete/{product}', 'delete')->name('löschenProduct');
+    Route::controller(ProductController::class)
+    ->prefix('product')
+    ->group(function () {
+        Route::get('/all', 'getAllProducts')->name('AlleProdukte');
+        Route::get('/add', 'index')->name('ProduktHinzufügen');
+        Route::get('/edit/{product}', 'edit')->name('bearbeitenProdukt');
+        Route::post('/update/{product}', 'update')->name('aktualisierenProdukt');
+        Route::get('/delete/{product}', 'delete')->name('löschenProduct');
     });
 
     
 
-    Route::controller(ContactController::class)->group(function () {
-        Route::get('/contacts/all', 'getAllContacts')->name('AlleKontakte');
-        Route::post('/contacts/send', 'sendContact')->name('sendContact');
-        Route::get('/contacts/edit/{contact}', 'edit')->name('bearbeitenKontakt');
-        Route::post('/contacts/update/{contact}', 'update')->name('aktualisierenKontakt');
-        Route::get('/contacts/delete/{contact}', 'delete')->name('löschenContact');
+    Route::controller(ContactController::class)
+    ->prefix('contacts')
+    ->group(function () {
+        Route::get('/all', 'getAllContacts')->name('AlleKontakte');
+        Route::post('/send', 'sendContact')->name('sendContact');
+        Route::get('/edit/{contact}', 'edit')->name('bearbeitenKontakt');
+        Route::post('/update/{contact}', 'update')->name('aktualisierenKontakt');
+        Route::get('/delete/{contact}', 'delete')->name('löschenContact');
     });
 
 
