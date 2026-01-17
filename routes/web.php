@@ -22,22 +22,26 @@ Route::middleware(['auth', AdminCheckMiddleware::class])
     ->prefix('admin')
     ->group(function () {
 
-    Route::get('/add-product', [ProductController::class, 'index'])->name('ProduktHinzufügen');
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('/product/all', 'getAllProducts')->name('AlleProdukte');
+        Route::get('/product/add', 'index')->name('ProduktHinzufügen');
+        Route::get('/product/edit/{product}', 'edit')->name('bearbeitenProdukt');
+        Route::post('/product/update/{product}', 'update')->name('aktualisierenProdukt');
+        Route::get('/product/delete/{product}', 'delete')->name('löschenProduct');
+    });
 
-    Route::get('/all-contacts', [ContactController::class, 'getAllContacts'])->name('AlleKontakte');
-    Route::get('/all-products', [ProductController::class, 'getAllProducts'])->name('AlleProdukte');
+    
 
-    Route::get('/delete-product/{product}', [ProductController::class, 'delete'])->name('löschenProduct');
-    Route::get('/delete-contact/{contact}', [ContactController::class, 'delete'])->name('löschenContact');
+    Route::controller(ContactController::class)->group(function () {
+        Route::get('/contacts/all', 'getAllContacts')->name('AlleKontakte');
+        Route::post('/contacts/send', 'sendContact')->name('sendContact');
+        Route::get('/contacts/edit/{contact}', 'edit')->name('bearbeitenKontakt');
+        Route::post('/contacts/update/{contact}', 'update')->name('aktualisierenKontakt');
+        Route::get('/contacts/delete/{contact}', 'delete')->name('löschenContact');
+    });
 
-    Route::post('/send-contact', [ContactController::class, 'sendContact']);
-    Route::post('/save-product', [ProductController::class, 'sendProduct'])->name('hinzufügenProdukt');
 
-    Route::get('/edit-product/{product}', [ProductController::class, 'edit'])->name('bearbeitenProdukt');
-    Route::get('/edit-contact/{contact}', [ContactController::class, 'edit'])->name('bearbeitenKontakt');
-
-    Route::post('/update-product/{product}', [ProductController::class, 'update'])->name('aktualisierenProdukt');
-    Route::post('/update-contact/{contact}', [ContactController::class, 'update'])->name('aktualisierenKontakt');
+    
 });
 
 
