@@ -10,7 +10,7 @@
     <!-- Kontakt Forma -->
     <div class="row">
         <div class="col-md-6">
-            <form method="POST" action="{{ route('update.contact', $singleContact->id) }}">
+            <form method="POST" action="{{ route('contact.update', $singleContact->id) }}">
               {{ csrf_field() }}
                  @if ($errors->any())
                     @foreach ($errors->all() as $error)
@@ -33,7 +33,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-success">Änderungen speichern</button>
-                <a href="{{ route('all.contacts') }}" class="btn btn-secondary">Abbrechen</a>
+                <a href="{{ route('contacts.all') }}" class="btn btn-secondary">Abbrechen</a>
             </form>
         </div>
 @endsection

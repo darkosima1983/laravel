@@ -25,11 +25,11 @@ Route::middleware(['auth', AdminCheckMiddleware::class])
     Route::controller(ProductController::class)
     ->prefix('product')
     ->group(function () {
-        Route::get('/all', 'getAllProducts')->name('all.products');
-        Route::get('/add', 'index')->name('add.product');
-        Route::get('/edit/{product}', 'edit')->name('edit.product');
-        Route::post('/update/{product}', 'update')->name('update.product');
-        Route::get('/delete/{product}', 'delete')->name('delete.product');
+        Route::get('/all', 'getAllProducts')->name('products.all');
+        Route::get('/add', 'index')->name('product.add');
+        Route::get('/edit/{product}', 'edit')->name('product.edit');
+        Route::post('/update/{product}', 'update')->name('product.update');
+        Route::get('/delete/{product}', 'delete')->name('product.delete');
     });
 
     
@@ -37,11 +37,11 @@ Route::middleware(['auth', AdminCheckMiddleware::class])
     Route::controller(ContactController::class)
     ->prefix('contacts')
     ->group(function () {
-        Route::get('/all', 'getAllContacts')->name('all.contacts');
-        Route::post('/send', 'sendContact')->name('send.contact');
-        Route::get('/edit/{contact}', 'edit')->name('edit.contact');
-        Route::post('/update/{contact}', 'update')->name('update.contact');
-        Route::get('/delete/{contact}', 'delete')->name('delete.contact');
+        Route::get('/all', 'getAllContacts')->name('contacts.all');
+        Route::post('/send', 'sendContact')->name('contact.send');
+        Route::get('/edit/{contact}', 'edit')->name('contact.edit');
+        Route::post('/update/{contact}', 'update')->name('contact.update');
+        Route::get('/delete/{contact}', 'delete')->name('contact.delete');
     });
 
 
