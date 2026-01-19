@@ -24,7 +24,7 @@ class ProductController extends Controller
     public function getAllProducts(){
        
          $products = Product::all(); 
-        return view('admin.allProducts', compact('products'));
+        return view('admin.product.all', compact('products'));
     }
     public function delete (Product $product)
     {
@@ -36,17 +36,17 @@ class ProductController extends Controller
     {
        $this->productRepository->createNew($request);
 
-       return redirect ()->route("AlleProdukte"); 
+       return redirect ()->route("product.all")->with("success", "Produkt wurde erfolgreich hinzugefügt."); 
     }
     public function edit( Product $product)
     {
-        return view('admin.edit-product', compact('product'));
+        return view('admin.product.edit', compact('product'));
     }
 
     public function update(EditProductRequest $request, Product $product)
     {
         $this->productRepository->updateProduct($product, $request);
-    return redirect()->route('AlleProdukte')->with('success', 'Produkt wurde erfolgreich aktualisiert.');
+    return redirect()->route('product.all')->with('success', 'Produkt wurde erfolgreich aktualisiert.');
     }
 
 
