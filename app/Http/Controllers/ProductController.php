@@ -26,13 +26,9 @@ class ProductController extends Controller
          $products = Product::all(); 
         return view('admin.allProducts', compact('products'));
     }
-    public function delete ($product)
-        {
-        $product = $this->productRepository->getProductById($product);
+    public function delete (Product $product)
+    {
         
-        if($product== null){
-            die("Dieses Produkt existiert nicht.");
-        }
         $product->delete();
         return redirect()->back();
     }
