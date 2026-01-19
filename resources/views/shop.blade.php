@@ -23,7 +23,9 @@
                             <p class="card-text">{{ Str::limit($product->description, 80) }}</p>
                             <p><strong>Preis:</strong> {{ $product->price }} €</p>
                             <p><strong>Menge:</strong> {{ $product->amount }}</p>
-                            <a href="/shop" class="btn btn-primary">Zum Shop</a>
+                            <a href="{{ route('product.show', $product) }}" class="btn btn-primary">
+                                Details
+                            </a>
                         </div>
                     </div>
                 </div>

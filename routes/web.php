@@ -15,6 +15,9 @@ Route::get('/contact', [ContactController::class, 'index']);
 Route::get('/', [HomepageController::class, 'index']);
 Route::get('/shop', [ShopController::class, 'getAllProducts']);
 
+Route::get('/product/{product}', [ProductController::class, 'show'])
+    ->name('product.show');
+
 
 
 
