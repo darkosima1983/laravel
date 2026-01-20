@@ -6,6 +6,7 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ProductController;
 use App\Http\Middleware\AdminCheckMiddleware;
+use App\Http\Controllers\ShoppingCartController;
 
 Route::get('/about', function () {
     return view('about');
@@ -15,11 +16,14 @@ Route::get('/contact', [ContactController::class, 'index']);
 Route::get('/', [HomepageController::class, 'index']);
 Route::get('/shop', [ShopController::class, 'getAllProducts']);
 
-Route::get('/product/{product}', [ProductController::class, 'show'])
+Route::get('/product/{product}', [ProductController::class, 'permalink'])
     ->name('product.show');
 
+Route::post('/cart/add', [ShoppingCartController::class, 'addToCart'])
+    ->name('cart.add');
 
-
+Route::get('/cart/view', [ShoppingCartController::class, 'viewCart'])
+    ->name('cart.view');
 
 Route::middleware(['auth', AdminCheckMiddleware::class])
     ->prefix('admin')

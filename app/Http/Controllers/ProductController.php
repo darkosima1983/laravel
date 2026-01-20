@@ -48,7 +48,7 @@ class ProductController extends Controller
         $this->productRepository->updateProduct($product, $request);
     return redirect()->route('product.all')->with('success', 'Produkt wurde erfolgreich aktualisiert.');
     }
-    public function show(Product $product)
+    public function permalink(Product $product)
 {
     return view('details', compact('product'));
 }
