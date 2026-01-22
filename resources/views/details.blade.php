@@ -6,7 +6,23 @@
 
 @section('content')
 <div class="container my-5">
+     {{-- SUCCESS --}}
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
+    {{-- ERRORS --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="row">
         {{-- Slika proizvoda --}}
         <div class="col-md-6 mb-4">
@@ -49,6 +65,8 @@
 
                 {{-- product id --}}
                 <input type="hidden" name="id" value="{{ $product->id }}">
+                <input type="hidden" name="name" value="{{ $product->name }}">
+
 
                 <div class="mb-3">
                     <label for="amount" class="form-label">
@@ -60,7 +78,6 @@
                         id="amount"
                         class="form-control"
                         min="1"
-                        max="{{ $product->amount }}"
                         value="1"
                         required
                     >
