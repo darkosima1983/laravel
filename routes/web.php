@@ -12,7 +12,7 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/contact', [ContactController::class, 'index']);
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/', [HomepageController::class, 'index']);
 Route::get('/shop', [ShopController::class, 'getAllProducts']);
 
@@ -29,15 +29,16 @@ Route::middleware(['auth', AdminCheckMiddleware::class])
     ->prefix('admin')
     ->group(function () {
 
-    Route::controller(ProductController::class)
+   Route::controller(ProductController::class)
     ->prefix('product')
     ->name('product.')
     ->group(function () {
-        Route::get('/all', 'getAllProducts')->name('all');
-        Route::get('/add', 'index')->name('add');
-        Route::get('/edit/{product}', 'edit')->name('edit');
-        Route::post('/update/{product}', 'update')->name('update');
-        Route::get('/delete/{product}', 'delete')->name('delete');
+        Route::get('/all', 'getAllProducts')->name('all');          // prikaz svih proizvoda
+        Route::get('/add', 'index')->name('add');                   // forma za dodavanje
+        Route::post('/add', 'sendProduct')->name('store');                // POST ruta za čuvanje novog proizvoda
+        Route::get('/edit/{product}', 'edit')->name('edit');        // forma za edit
+        Route::post('/update/{product}', 'update')->name('update'); // update proizvoda
+        Route::get('/delete/{product}', 'delete')->name('delete');  // brisanje
     });
 
     
@@ -59,7 +60,7 @@ Route::middleware(['auth', AdminCheckMiddleware::class])
 
 
 Route::get('/dashboard', function () {
-    return redirect('/admin/add-product');
+    return redirect()->route('product.add');
 })->middleware('auth')->name('dashboard');
 
 

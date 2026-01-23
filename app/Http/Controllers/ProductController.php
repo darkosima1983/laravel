@@ -24,7 +24,7 @@ class ProductController extends Controller
     public function getAllProducts(){
        
          $products = Product::all(); 
-        return view('admin.product.all', compact('products'));
+        return view('admin.allProducts', compact('products'));
     }
     public function delete (Product $product)
     {
@@ -36,7 +36,8 @@ class ProductController extends Controller
     {
        $this->productRepository->createNew($request);
 
-       return redirect ()->route("product.all")->with("success", "Produkt wurde erfolgreich hinzugefügt."); 
+       return redirect()->route("product.all")
+                     ->with("success", "Produkt wurde erfolgreich hinzugefügt."); 
     }
     public function edit( Product $product)
     {

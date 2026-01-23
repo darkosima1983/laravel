@@ -40,7 +40,7 @@ class ContactController extends Controller
 
 
 
-       return redirect ()->route("AlleKontakte");
+       return redirect()->route('contact')->with('success', 'Ihre Nachricht wurde erfolgreich gesendet!');
     }
 
     public function edit($contact)
