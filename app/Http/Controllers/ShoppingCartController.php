@@ -18,11 +18,10 @@ class ShoppingCartController extends Controller
     {
         
         $product = Product::findOrFail($request->id);
-        
-            if ($request->amount > $product->amount) {
-            return back()
-                ->withErrors(['amount' => 'Nicht genügend Bestand verfügbar.'])
-                ->withInput();
+        if ($request->amount > $product->amount) {
+        return back()
+            ->withErrors(['amount' => 'Nicht genügend Bestand verfügbar.'])
+            ->withInput();
 }
         Session::push('product', [
             'id'     => $product->id,
