@@ -19,11 +19,16 @@ Route::get('/shop', [ShopController::class, 'getAllProducts']);
 Route::get('/product/{product}', [ProductController::class, 'permalink'])
     ->name('product.show');
 
-Route::post('/cart/add', [ShoppingCartController::class, 'addToCart'])
-    ->name('cart.add');
+Route::middleware('auth')->group(function () {
 
-Route::get('/cart/view', [ShoppingCartController::class, 'viewCart'])
-    ->name('cart.view');
+Route::get('/cart', [ShoppingCartController::class, 'viewCart'])->name('cart.view');
+
+Route::post('/cart/add', [ShoppingCartController::class, 'addToCart'])->name('cart.add');
+
+Route::get('/cart/checkout', [ShoppingCartController::class, 'checkout'])->name('cart.checkout');
+
+Route::post('/cart/finish', [ShoppingCartController::class, 'finishCart'])->name('cart.finish');
+});
 
 Route::middleware(['auth', AdminCheckMiddleware::class])
     ->prefix('admin')
@@ -60,7 +65,7 @@ Route::middleware(['auth', AdminCheckMiddleware::class])
 
 
 Route::get('/dashboard', function () {
-    return redirect()->route('product.add');
+    return redirect()->route('product.all');
 })->middleware('auth')->name('dashboard');
 
 

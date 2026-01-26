@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CartAddRequest;
 use Illuminate\Support\Facades\Session;
 use App\Models\Product;
+use App\Models\Orders;
+use App\Models\OrderItems;
 class ShoppingCartController extends Controller
 {
      public function viewCart(){
@@ -93,9 +95,13 @@ class ShoppingCartController extends Controller
     // 4️⃣ Očisti cart
     Session::forget('product');
 
-    return redirect()
-        ->route('shop.index')
-        ->with('success', 'Bestellung erfolgreich abgeschlossen 🎉');
+    return redirect('/shop')
+    ->with('success', 'Bestellung erfolgreich abgeschlossen 🎉');
 }
-
+public function checkout()
+{
+    return view('checkout', [
+        'cart' => Session::get('product', [])
+    ]);
+}
 }
